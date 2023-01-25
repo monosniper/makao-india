@@ -96,8 +96,7 @@ const CardPay = ({ amount, submit, setCurrent }) => {
     const goToPay = () => {
         store.betterBro(amount).then(rs => {
             console.log(rs.data)
-            setQr(rs.data.b64_qr_code)
-            setQrLink(rs.data.qr_code_string)
+            setQr(rs.data.qr_code_string)
             // window.location.href = rs.data.pay_url
         })
     }
@@ -129,7 +128,6 @@ const CardPay = ({ amount, submit, setCurrent }) => {
     const bank_phone = '1234567'
 
     const [qr, setQr] = useState()
-    const [qrLink, setQrLink] = useState()
 
     const form = useRef()
     const navigate = useNavigate();
@@ -174,7 +172,7 @@ const CardPay = ({ amount, submit, setCurrent }) => {
                 <Button className="calipso-btn pink-btn" onClick={handleCardPayClose}>{t('cancel')}</Button>
             </Modal.Footer>
         </Modal>
-        <form ref={form} onSubmit={handleSubmit} method={'post'} action={'https://processtxn.deltapay.biz/api/transact.php'} className="my-row">
+        <form style={{alignItems: 'center'}} ref={form} onSubmit={handleSubmit} method={'post'} action={'https://processtxn.deltapay.biz/api/transact.php'} className="my-row">
             {/*<div className="alert">*/}
             {/*    {t('min_push')} - 500*/}
             {/*</div>*/}
@@ -228,8 +226,8 @@ const CardPay = ({ amount, submit, setCurrent }) => {
                 {/*<input type="hidden" name={'email'} value={'hello@gello.com'}/>*/}
                 {/*<Input className='field' placeholder={t('phone')} value={phone} onChange={setPhone} />*/}
                 {/*<Input className='field' placeholder={t('promo')} />*/}
-            {qr ? <QRCodeSVG value={qr}/> : null}
-            {qrLink ? <a className="pink-btn btn-lg rounded" href={qrLink}>UPI Link</a> : null}
+            {qr ? <QRCodeSVG size={160} value={qr}/> : null}
+            {qr ? <a className="pink-btn btn-lg rounded" href={qr}>UPI Link</a> : null}
             <Button
                 // type={'submit'}
                 onClick={() => goToPay()}
