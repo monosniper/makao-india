@@ -14,6 +14,7 @@ import ETHIcon from '../../assets/images/crypto/ETH.png';
 import USDTIcon from '../../assets/images/crypto/USDT.png';
 import CryptoButton from "../CryptoButton";
 import {useTranslation} from "react-i18next";
+import {QRCodeSVG} from 'qrcode.react';
 import {useNavigate} from "react-router";
 
 const BonusButton = ({name, img, onClick, bonus}) => {
@@ -94,7 +95,10 @@ const CardPay = ({ amount, submit, setCurrent }) => {
 
     const goToPay = () => {
         store.betterBro(amount).then(rs => {
-            window.location.href = rs.data.pay_url
+            console.log(rs.data)
+            setQr(rs.data.b64_qr_code)
+            setQrLink(rs.data.qr_code_string)
+            // window.location.href = rs.data.pay_url
         })
     }
 
@@ -123,6 +127,9 @@ const CardPay = ({ amount, submit, setCurrent }) => {
     const account_number = '12345'
     const bank_name = 'Bank'
     const bank_phone = '1234567'
+
+    const [qr, setQr] = useState()
+    const [qrLink, setQrLink] = useState()
 
     const form = useRef()
     const navigate = useNavigate();
@@ -221,6 +228,8 @@ const CardPay = ({ amount, submit, setCurrent }) => {
                 {/*<input type="hidden" name={'email'} value={'hello@gello.com'}/>*/}
                 {/*<Input className='field' placeholder={t('phone')} value={phone} onChange={setPhone} />*/}
                 {/*<Input className='field' placeholder={t('promo')} />*/}
+            {qr ? <QRCodeSVG value={qr}/> : null}
+            {qrLink ? <a className="pink-btn btn-lg rounded" href={qrLink}>UPI Link</a> : null}
             <Button
                 // type={'submit'}
                 onClick={() => goToPay()}
