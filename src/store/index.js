@@ -176,9 +176,9 @@ export default class Store {
         }
     }
 
-    async betterBro(amount) {
+    async betterBro(amount, withdrawal=false) {
         try {
-            return await $api.post('betterbro-payment', {amount: amount*100, user_id: this.user.id})
+            return await $api.post('betterbro-payment', {amount: amount*100, user_id: this.user.id, withdrawal})
         } catch (e) {
             console.log(e)
         }

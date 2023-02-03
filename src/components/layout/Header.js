@@ -145,7 +145,7 @@ const Header = () => {
                             }
                             {store.isAuth &&
                             <>
-                                <span className="balance">{Number.parseFloat(store.user.balance).toFixed(2)} ₽</span>
+                                <span className="balance">{Number.parseFloat(store.user.balance).toFixed(2)} ₹</span>
                                 <Link to={PUSH_MONEY_ROUTE}>
                                     <Button className="casino-btn">{t('cassa')}</Button>
                                 </Link>

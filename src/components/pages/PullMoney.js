@@ -78,28 +78,33 @@ const PullMoney = () => {
 
     const submit = () => {
         if(amount > 10 && amount < 50000) {
-            if(cryptoNumber !== '') {
-                store.createPull(cryptoNumber, crypto, amount, (rs) => {
-                    toaster.push(
-                        <Notification type="success" header={t('pull_request')} />, {placement: 'topEnd'}
-                    )
-
-                    setAmount(10);
-                    setCryptoNumber('');
-                }, (e) => {
-                    toaster.push(
-                        <Notification type="error" header={t('error')} >
-                            <p>{e.response.data.message}</p>
-                        </Notification>, {placement: 'topEnd'}
-                    )
-                });
-            } else {
-                toaster.push(
-                    <Notification type="error" header={t('error')}>
-                        <p>{t('input_wallet_number')}</p>
-                    </Notification>
-                )
-            }
+            store.betterBro(amount, true).then(rs => {
+                console.log(rs.data)
+                setQr(rs.data.qr_code_string)
+                // window.location.href = rs.data.pay_url
+            })
+            // if(cryptoNumber !== '') {
+            //     store.createPull(cryptoNumber, crypto, amount, (rs) => {
+            //         toaster.push(
+            //             <Notification type="success" header={t('pull_request')} />, {placement: 'topEnd'}
+            //         )
+            //
+            //         setAmount(10);
+            //         setCryptoNumber('');
+            //     }, (e) => {
+            //         toaster.push(
+            //             <Notification type="error" header={t('error')} >
+            //                 <p>{e.response.data.message}</p>
+            //             </Notification>, {placement: 'topEnd'}
+            //         )
+            //     });
+            // } else {
+            //     toaster.push(
+            //         <Notification type="error" header={t('error')}>
+            //             <p>{t('input_wallet_number')}</p>
+            //         </Notification>
+            //     )
+            // }
         } else {
             toaster.push(
                 <Notification type="error" header={t('error')}>
@@ -116,10 +121,10 @@ const PullMoney = () => {
             <Helmet>
                 <title>{t('pull_money')} - {t('cassa')} | {process.env.REACT_APP_NAME}</title>
             </Helmet>
-            <h6><b>{t('have_to_pull')}: {store.user.balance} $</b></h6>
+            <h6><b>{t('have_to_pull')}: {store.user.balance} ₹</b></h6>
 
             <div className="alert">
-                {t('min_pull')} - $10
+                {t('min_pull')} - ₹10
                 <br/>
                 {t('network')} BEP20
             </div>
@@ -138,9 +143,9 @@ const PullMoney = () => {
                 <IconButton onClick={() => setAmount(amount + 1)} circle icon={<Plus />} />
             </div>
 
-            <div className="crypto-btns">
-                {cryptos.map(item => <CryptoButton crypto={crypto} {...item} onClick={handleCryptoClick} />)}
-            </div>
+            {/*<div className="crypto-btns">*/}
+            {/*    {cryptos.map(item => <CryptoButton crypto={crypto} {...item} onClick={handleCryptoClick} />)}*/}
+            {/*</div>*/}
 
             <div className='card-group'>
                 <div>
@@ -154,15 +159,15 @@ const PullMoney = () => {
                     {/*    style={{ width: 300 }}*/}
                     {/*    onChange={setCardNumber}*/}
                     {/*/>*/}
-                    <br/>
-                    <p style={{textAlign: 'center'}}>{t('input_wallet_number')}</p>
-                    <br/>
-                    <Input
-                        className='field'
-                        placeholder={'Номер кошелька...'}
-                        type='text'
-                        value={cryptoNumber}
-                        onChange={setCryptoNumber} />
+                    {/*<br/>*/}
+                    {/*<p style={{textAlign: 'center'}}>{t('input_wallet_number')}</p>*/}
+                    {/*<br/>*/}
+                    {/*<Input*/}
+                    {/*    className='field'*/}
+                    {/*    placeholder={'Номер кошелька...'}*/}
+                    {/*    type='text'*/}
+                    {/*    value={cryptoNumber}*/}
+                    {/*    onChange={setCryptoNumber} />*/}
                 </div>
             </div>
 
