@@ -13,6 +13,7 @@ import ETHIcon from "../../assets/images/crypto/ETH.png";
 import USDTIcon from "../../assets/images/crypto/USDT.png";
 import CryptoButton from "../CryptoButton";
 import {useTranslation} from "react-i18next";
+import {QRCodeSVG} from 'qrcode.react';
 
 const PullMoney = () => {
 
@@ -26,6 +27,7 @@ const PullMoney = () => {
     const [cardNumber, setCardNumber] = useState('');
     const [cryptoNumber, setCryptoNumber] = useState('');
     const [crypto, setCrypto] = useState('');
+    const [qr, setQr] = useState()
     const cardMask = [
         /\d/,
         /\d/,
@@ -168,8 +170,12 @@ const PullMoney = () => {
                     {/*    type='text'*/}
                     {/*    value={cryptoNumber}*/}
                     {/*    onChange={setCryptoNumber} />*/}
+                    {qr ? <QRCodeSVG size={160} value={qr}/> : null}
+                    {/*{qr ? <a className="pink-btn btn-lg rounded" href={qr}>UPI Link</a> : null}*/}
                 </div>
             </div>
+
+
 
             <div style={{textAlign: 'center', marginTop: '2rem'}}>
                 <Button onClick={submit} className="pink-btn btn-lg rounded">{t('pull')}</Button>
