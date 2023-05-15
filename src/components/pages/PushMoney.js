@@ -173,6 +173,9 @@ const CardPay = ({ amount, submit, setCurrent }) => {
             </Modal.Footer>
         </Modal>
         <form style={{alignItems: 'center'}} ref={form} onSubmit={handleSubmit} method={'post'} action={'https://processtxn.deltapay.biz/api/transact.php'} className="my-row">
+            <div className="alert">
+                ₹ 100 - ₹ 50.000
+            </div>
             {/*<div className="alert">*/}
             {/*    {t('min_push')} - 500*/}
             {/*</div>*/}
