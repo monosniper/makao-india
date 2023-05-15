@@ -226,7 +226,12 @@ const CardPay = ({ amount, submit, setCurrent }) => {
                 {/*<input type="hidden" name={'email'} value={'hello@gello.com'}/>*/}
                 {/*<Input className='field' placeholder={t('phone')} value={phone} onChange={setPhone} />*/}
                 {/*<Input className='field' placeholder={t('promo')} />*/}
-            {qr ? <QRCodeSVG size={160} value={qr}/> : null}
+            {qr ? (<>
+                <div className="alert">
+                    Scan QR to pay
+                </div>
+                <QRCodeSVG size={160} value={qr}/>
+            </>) : null}
             {qr ? <a className="pink-btn btn-lg rounded" href={qr}>UPI Link</a> : null}
             <Button
                 // type={'submit'}
